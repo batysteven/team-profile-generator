@@ -74,31 +74,171 @@ class teamGenerator {
             teamArray.push(manager);
 
             // take user to prompt what to do next
-            promptQuestion();
+            this.promptQuestion();
         });
     }
 
+    // prompt what to do next add inter, add engineer, or finished
     promptQuestion() {
         inquirer.prompt({
             type: 'list',
             name: 'questionNext',
             message: 'Would you like to do next?',
-            choices: ["Add Intern", "Add Engineer", "Finished"]
+            choices: [{name :"Add Intern", value: 0}, {name: "Add Engineer", value: 1}, {name: "Finished", value: 2}]
         })
-        .then(function(response) {
-            for(let i = 0; i <response.questionNext; i++) {
-                if (response.questionNext === 0) {
-                    promptIntern();
-                }
-                if (response.questionNext === 1) {
-                    promptEngineer();
-                }
-                if (response.questionNext === 2) {
-                    generateTeamIndex();
-                }
+        .then((response) => {
+            if (response.questionNext === 0) {
+                this.promptIntern();
+            }
+            if (response.questionNext === 1) {
+                this.promptEngineer();
+            }
+            if (response.questionNext === 2) {
+                this.generateTeamIndex();
             }
         });
     }
+
+    promptIntern() {
+        const intern = new Intern;
+
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'name',
+                message: 'Please enter your interns name. (Required)',
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter your interns name.');
+                        return false;
+                    }
+                }
+            },
+            {
+                type: 'input',
+                name: 'employeeID',
+                message: 'Please enter the interns ID. (Required)',
+                validate: employeeIDInput => {
+                    if (employeeIDInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter the interns ID.');
+                        return false;
+                    }
+                }
+            },
+            {
+                type: 'input',
+                name: 'emailAddress',
+                message: 'Please enter the interns email address. (Required)',
+                validate: emailAddressInput => {
+                    if (emailAddressInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter the interns email address.');
+                        return false;
+                    }
+                }
+            },
+            {
+                type: 'input',
+                name: 'school',
+                message: 'Please enter the interns school. (Required)',
+                validate: schoolInput => {
+                    if (schoolInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter the interns school.');
+                        return false;
+                    }
+                }
+            },
+        ])
+        // place input into const manager
+        .then(({ name, employeeID, emailAddress, school }) => {
+            intern.name = name;
+            intern.employeeID = employeeID;
+            intern.emailAddress = emailAddress;
+            intern.school = school;
+            teamArray.push(intern);
+            // take user to prompt what to do next
+            this.promptQuestion();
+        });
+    }
+
+    promptEngineer() {
+        const engineer = new Engineer;
+
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'name',
+                message: 'Please enter your engineers name. (Required)',
+                validate: nameInput => {
+                    if (nameInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter your engineers name.');
+                        return false;
+                    }
+                }
+            },
+            {
+                type: 'input',
+                name: 'employeeID',
+                message: 'Please enter the engineers ID. (Required)',
+                validate: employeeIDInput => {
+                    if (employeeIDInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter the engineers ID.');
+                        return false;
+                    }
+                }
+            },
+            {
+                type: 'input',
+                name: 'emailAddress',
+                message: 'Please enter the engineers email address. (Required)',
+                validate: emailAddressInput => {
+                    if (emailAddressInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter the engineers email address.');
+                        return false;
+                    }
+                }
+            },
+            {
+                type: 'input',
+                name: 'githubUsername',
+                message: 'Please enter the engineers github username. (Required)',
+                validate: schoolInput => {
+                    if (schoolInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter the engineers github username.');
+                        return false;
+                    }
+                }
+            },
+        ])
+        // place input into const manager
+        .then(({ name, employeeID, emailAddress, githubUsername }) => {
+            engineer.name = name;
+            engineer.employeeID = employeeID;
+            engineer.emailAddress = emailAddress;
+            engineer.githubUsername = githubUsername;
+            console.log(engineer);
+            teamArray.push(engineer);
+            console.log(teamArray);
+            // take user to prompt what to do next
+            this.promptQuestion();
+        });
+    }
+    
 }
 
 new teamGenerator().promptManager();
