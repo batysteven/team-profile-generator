@@ -2,15 +2,15 @@ const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
-
+var teamArray = [];
 class teamGenerator {
 
     // first thing when app is initiated, prompts user for manager information
     promptManager() {
-
         // create const of manager
         const manager = new Manager;
 
+        // prompt user for manager information
         inquirer.prompt([
             {
                 type: 'input',
@@ -65,11 +65,38 @@ class teamGenerator {
                 }
             },
         ])
+        // place input into const manager
         .then(({ name, employeeID, emailAddress, officeNumber }) => {
             manager.name = name;
             manager.employeeID = employeeID;
             manager.emailAddress = emailAddress;
             manager.officeNumber = officeNumber;
+            teamArray.push(manager);
+
+            // take user to prompt what to do next
+            promptQuestion();
+        });
+    }
+
+    promptQuestion() {
+        inquirer.prompt({
+            type: 'list',
+            name: 'questionNext',
+            message: 'Would you like to do next?',
+            choices: ["Add Intern", "Add Engineer", "Finished"]
+        })
+        .then(function(response) {
+            for(let i = 0; i <response.questionNext; i++) {
+                if (response.questionNext === 0) {
+                    promptIntern();
+                }
+                if (response.questionNext === 1) {
+                    promptEngineer();
+                }
+                if (response.questionNext === 2) {
+                    generateTeamIndex();
+                }
+            }
         });
     }
 }
