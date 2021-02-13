@@ -65,7 +65,7 @@ class teamGenerator {
                 }
             },
         ])
-        // place input into const manager
+        // update const manager with user input
         .then(({ name, employeeID, emailAddress, officeNumber }) => {
             manager.name = name;
             manager.employeeID = employeeID;
@@ -156,7 +156,7 @@ class teamGenerator {
                 }
             },
         ])
-        // place input into const manager
+        // update const intern with user input
         .then(({ name, employeeID, emailAddress, school }) => {
             intern.name = name;
             intern.employeeID = employeeID;
@@ -225,18 +225,20 @@ class teamGenerator {
                 }
             },
         ])
-        // place input into const manager
+        // update const engineer with user input
         .then(({ name, employeeID, emailAddress, githubUsername }) => {
             engineer.name = name;
             engineer.employeeID = employeeID;
             engineer.emailAddress = emailAddress;
             engineer.githubUsername = githubUsername;
-            console.log(engineer);
             teamArray.push(engineer);
-            console.log(teamArray);
             // take user to prompt what to do next
             this.promptQuestion();
         });
+    }
+
+    generateTeamIndex() {
+
     }
     
 }
