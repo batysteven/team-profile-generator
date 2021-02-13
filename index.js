@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
+const generateTeamHTML = require('./src/teamHTML-template');
 var teamArray = [];
 class teamGenerator {
 
@@ -240,7 +241,6 @@ class teamGenerator {
     generateTeamIndex() {
 
     }
-    
 }
 
 new teamGenerator().promptManager();
