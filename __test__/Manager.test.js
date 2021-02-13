@@ -1,5 +1,5 @@
 const { test, expect } = require('@jest/globals');
-const Manager = require('../lib/Employee.js');
+const Manager = require('../lib/Manager.js');
 
 test('creates a manager object', () => {
     const manager = new Manager('Steve');

@@ -1,6 +1,7 @@
-const Engineer = require('../lib/Employee.js');
+const { test, expect } = require('@jest/globals');
+const Engineer = require('../lib/Engineer');
 
-test('creates a manager object', () => {
+test('creates a engineer object', () => {
     const engineer = new Engineer('Steve');
     engineer.employeeID = 1;
     engineer.emailAddress = 'steve@email.com';
