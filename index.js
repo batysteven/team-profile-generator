@@ -3,7 +3,8 @@ const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const generateTeamHTML = require('./src/teamHTML-template');
-var teamArray = [];
+const fs = require('fs');
+const teamArray = [];
 class teamGenerator {
 
     // first thing when app is initiated, prompts user for manager information
@@ -96,7 +97,7 @@ class teamGenerator {
             }
             if (response.questionNext === 2) {
                 generateTeamHTML(teamArray);
-                return writeFile(teamData);
+                writeToFile(teamArray);
             }
         });
     }
@@ -238,25 +239,25 @@ class teamGenerator {
             this.promptQuestion();
         });
     }
+}
 
-    writeToFile = fileContent => {
-        return new Promise((resolve, reject) => {
-            fs.writeFile('./dist/index.html', fileContent, err => {
-                // if there's an error, reject the Promise and send the error to the Promise's .catch() method
-                if (err) {
-                    reject(err);
-                    //return out of the function here to make sure the Promise doesn't accidentally execute the resolve() function as well
-                    return;
-                }
-    
-                //if everything went well, resolve the Promise and send the successful data to the .then() method
-                resolve({
-                    ok: true,
-                    message: 'File created!'
-                });
+const writeToFile = fileContent => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./dist/index.html', fileContent, err => {
+            // if there's an error, reject the Promise and send the error to the Promise's .catch() method
+            if (err) {
+                reject(err);
+                //return out of the function here to make sure the Promise doesn't accidentally execute the resolve() function as well
+                return;
+            }
+
+            //if everything went well, resolve the Promise and send the successful data to the .then() method
+            resolve({
+                ok: true,
+                message: 'File created!'
             });
         });
-    };
-}
+    });
+};
 
 new teamGenerator().promptManager();
