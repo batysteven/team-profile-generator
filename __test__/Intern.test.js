@@ -12,3 +12,9 @@ test('creates a intern object', () => {
     expect(intern.emailAddress).toEqual(expect.any(String));
     expect(intern.school).toEqual(expect.any(String));
 });
+
+test('get interns role', () => {
+    const intern = new Intern('Steve');
+
+    expect(intern.getRole()).toEqual(expect.stringContaining('Intern'));
+});
