@@ -1,21 +1,20 @@
 const generateTeamMember = memberData => {
-    memberData.forEach(element => {
-        
+    memberData.forEach(member => {
         return `
         <section>
-        ${element.name}
-        ${element.role}
-        ${element.employeeID}
-        ${element.emailAddress}
-        ${(element.officeNumber) || (element.githubUsername) || (element.school)}
+        ${member.name}
+        ${member.role}
+        ${member.employeeID}
+        ${member.emailAddress}
+        ${(member.officeNumber) || (member.githubUsername) || (member.school)}
         </section> 
         `;
-        // console.log(element);
     });
 }
 
 module.exports = teamData => {
     const teamArray = teamData;
+    console.log(generateTeamMember(teamArray));
 
     return `
     <!DOCTYPE html>

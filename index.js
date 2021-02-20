@@ -99,14 +99,24 @@ class teamGenerator {
             }
             if (response.questionNext === 2) {
                 // .then(teamArray => {
-                    return generateTeamHTML(teamArray)
+                    Promise.resolve()
+                    .then(() => {
+                        return generateTeamHTML(teamArray);
+                    })
+                    .then((teamData) => {
+                        return this.writeToFile(teamData);
+                    });
+                    // generateTeamHTML(teamArray);
+                    // generateTeamHTML.then((teamData) =>{
+                    //     writeToFile(teamData);
+                    // });
                 // })
-                .then(pageHTML => {
-                    return writeToFile(pageHTML);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+                // .then(pageHTML => {
+                //     return writeToFile(pageHTML);
+                // })
+                // .catch(err => {
+                //     console.log(err);
+                // });
                 // generateTeamHTML(teamArray);
                 // console.log(this);
                 // writeToFile();
