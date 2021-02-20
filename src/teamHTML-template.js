@@ -33,7 +33,6 @@ const generateTeamMember = memberData => {
             </section> 
             `;
         }
-        
     });
 }
 
