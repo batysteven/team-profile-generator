@@ -1,19 +1,16 @@
 const generateTeamMember = memberData => {
-    array.forEach(element => {
-        role = getRole();
-        name = getName();
-        employeeID = getID();
-        emailAddress = getEmail();
-        if (role === 'Manager') {
-            this.officeNumber = officeNumber;
-        }
-        if (role === 'Engineer') {
-            githubUsername = getGithub();
-        }
-
-        if (role === 'Intern') {
-            school = getSchool();
-        }
+    memberData.forEach(element => {
+        
+        return `
+        <section>
+        ${element.name}
+        ${element.role}
+        ${element.employeeID}
+        ${element.emailAddress}
+        ${(element.officeNumber) || (element.githubUsername) || (element.school)}
+        </section> 
+        `;
+        // console.log(element);
     });
 }
 

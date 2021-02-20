@@ -4,6 +4,8 @@ const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const generateTeamHTML = require('./src/teamHTML-template');
 const fs = require('fs');
+const { doesNotMatch } = require('assert');
+const { prompts } = require('inquirer');
 const teamArray = [];
 class teamGenerator {
 
@@ -86,23 +88,31 @@ class teamGenerator {
             type: 'list',
             name: 'questionNext',
             message: 'Would you like to do next?',
-            choices: [{name :"Add Intern", value: 0}, {name: "Add Engineer", value: 1}, {name: "Finished", value: 2}]
+            choices: [{name :"Add Engineer", value: 0}, {name: "Add Intern", value: 1}, {name: "Finished", value: 2}]
         })
         .then((response) => {
             if (response.questionNext === 0) {
-                this.promptIntern();
-            }
-            if (response.questionNext === 1) {
                 this.promptEngineer();
             }
+            if (response.questionNext === 1) {
+                this.promptIntern();
+            }
             if (response.questionNext === 2) {
-                generateTeamHTML(teamArray)
-                .then(teamData => {
-                    return writeToFile(teamData);
+                // .then(teamArray => {
+                    return generateTeamHTML(teamArray)
+                // })
+                .then(pageHTML => {
+                    return writeToFile(pageHTML);
                 })
                 .catch(err => {
                     console.log(err);
                 });
+                // generateTeamHTML(teamArray);
+                // console.log(this);
+                // writeToFile();
+                // .catch(err => {
+                //     console.log(err);
+                // });
             }
         });
     }
@@ -244,25 +254,40 @@ class teamGenerator {
             this.promptQuestion();
         });
     }
+
+    writeToFile(teamData) {
+        fs.writeFile('./dist/index.html', teamData, function (err) {
+            if (err) return console.log(err);
+        });
+    }
 }
 
-const writeToFile = fileContent => {
-    return new Promise((resolve, reject) => {
-        fs.writeFile('./dist/index.html', fileContent, err => {
-            // if there's an error, reject the Promise and send the error to the Promise's .catch() method
-            if (err) {
-                reject(err);
-                //return out of the function here to make sure the Promise doesn't accidentally execute the resolve() function as well
-                return;
-            }
+// const writeToFile = fileContent => {
+//     return new Promise((resolve, reject) => {
+//         fs.writeFile('./dist/index.html', fileContent, err => {
+//             // if there's an error, reject the Promise and send the error to the Promise's .catch() method
+//             if (err) {
+//                 reject(err);
+//                 //return out of the function here to make sure the Promise doesn't accidentally execute the resolve() function as well
+//                 return;
+//             }
 
-            //if everything went well, resolve the Promise and send the successful data to the .then() method
-            resolve({
-                ok: true,
-                message: 'File created!'
-            });
-        });
-    });
-};
+//             //if everything went well, resolve the Promise and send the successful data to the .then() method
+//             resolve({
+//                 ok: true,
+//                 message: 'File created!'
+//             });
+//         });
+//     });
+// };
 
 new teamGenerator().promptManager();
+    // .then(teamArray => {
+    //     return generateTeamHTML(teamArray)
+    // })
+    // .then(pageHTML => {
+    //     return writeToFile(pageHTML);
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    // });
