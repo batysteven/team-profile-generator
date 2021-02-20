@@ -1,14 +1,39 @@
 const generateTeamMember = memberData => {
     memberData.forEach(member => {
-        return `
-        <section>
-        ${member.name}
-        ${member.role}
-        ${member.employeeID}
-        ${member.emailAddress}
-        ${(member.officeNumber) || (member.githubUsername) || (member.school)}
-        </section> 
-        `;
+        if (member.role === 'Manager') {
+            return `
+            <section>
+            ${member.name}
+            ${member.role}
+            ID: ${member.employeeID}
+            <a href="mailto:${member.emailAddress}">Email: ${member.emailAddress}</a>
+            Office Number: ${member.officeNumber}
+            </section> 
+            `;
+        }
+        if (member.role === 'Engineer') {
+            return `
+            <section>
+            ${member.name}
+            ${member.role}
+            ID: ${member.employeeID}
+            <a href="mailto:${member.emailAddress}">Email: ${member.emailAddress}</a>
+            <a href="${member.githubUsername}">GitHub: ${member.githubUsername}</a>
+            </section> 
+            `;
+        }
+        if (member.role === 'Intern') {
+            return `
+            <section>
+            ${member.name}
+            ${member.role}
+            ID: ${member.employeeID}
+            <a href="mailto:${member.emailAddress}">Email: ${member.emailAddress}</a>
+            School: ${member.school}
+            </section> 
+            `;
+        }
+        
     });
 }
 
