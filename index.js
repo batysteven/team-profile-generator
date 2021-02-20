@@ -96,8 +96,13 @@ class teamGenerator {
                 this.promptEngineer();
             }
             if (response.questionNext === 2) {
-                generateTeamHTML(teamArray);
-                writeToFile(teamArray);
+                generateTeamHTML(teamArray)
+                .then(teamData => {
+                    return writeToFile(teamData);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
             }
         });
     }
