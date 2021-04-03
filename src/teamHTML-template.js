@@ -58,11 +58,13 @@ module.exports = teamData => {
         .card{background-color: rgb(36, 219, 219); text-align: left; width: 200px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 5px; color: rgb(194, 98, 42); padding: 2px 16px; margin: 5px;}
         .container{text-align: center; padding: 2px 16px; background-color: white; border-radius: 5px; margin-bottom: 10px;}
         .header{background-color: green; color:white; text-align: center; padding-top: 20px; padding-bottom: 20px;}
+        .grid-container{display: grid; grid-auto-flow: column; grid-row-gap: 50px; grid-auto-columns: max-content;}
     </style>
     <body>
         <header class="header"><h1>My Team</h1></header>
-        ${generateTeamMember(teamData)}
-        
+        <div class="grid-container">
+            ${generateTeamMember(teamData)}
+        </div>
     </body>
     </html>
     `;
